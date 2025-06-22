@@ -17,12 +17,12 @@ model Booking {
   id             Int             @id @default(autoincrement())
   userId         Int
   hotelId        Int
-  amount         Int
+  bookingAmount  Int
   totalGuests    Int
   status         BookingStatus   @default(PENDING)
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
-  IdempotencyKey IdempotencyKey?    // Optional 1:1 reverse relation
+  IdempotencyKey IdempotencyKey? // Optional 1:1 reverse relation
 }
 
 model IdempotencyKey {
@@ -32,7 +32,7 @@ model IdempotencyKey {
   finalized Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  booking   Booking? @relation(fields: [bookingId], references: [id]) 
+  booking   Booking? @relation(fields: [bookingId], references: [id])
 }
 
 enum BookingStatus {
