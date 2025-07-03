@@ -1,5 +1,6 @@
+import prismaClient from '../prisma/client';
 import { CreateBookingDTO } from "../dto/booking.dto";
-import { confirmBooking, createBooking, createIdempotencyKey, finalizeIdempotencyKey, getIdempotencyKey } from "../repositories/booking.repository";
+import { confirmBooking, createBooking, createIdempotencyKey, finalizeIdempotencyKey, getIdempotencyKeyWithLock } from "../repositories/booking.repository";
 import { BadRequestError, InternalServerError, NotFoundError } from "../utils/errors/app.error";
 import { generateIdempotencyKey } from "../utils/generateIdempotencyKey";
 
@@ -28,18 +29,21 @@ export async function createBookingService(createBookingDTO: CreateBookingDTO) {
 }
 
 export async function confirmBookingService(idempotencyKey: string) {
-    const idempotencyKeyData = await getIdempotencyKey(idempotencyKey);
+    return await prismaClient.$transaction(async (tx) => {
 
-    if (!idempotencyKeyData) {
-        throw new NotFoundError('Idempotency key not found');
-    }
+        const idempotencyKeyData = await getIdempotencyKeyWithLock(tx, idempotencyKey);
 
-    if (idempotencyKeyData.finalized) {
-        throw new BadRequestError('Idempotency key already finalized');
-    }
+        if (!idempotencyKeyData || !idempotencyKeyData.bookingId) {
+            throw new NotFoundError('Idempotency key not found');
+        }
 
-    const booking = await confirmBooking(idempotencyKeyData.bookingId);
-    await finalizeIdempotencyKey(idempotencyKey);
+        if (idempotencyKeyData.finalized) {
+            throw new BadRequestError('Idempotency key already finalized');
+        }
 
-    return booking;
+        const booking = await confirmBooking(tx, idempotencyKeyData.bookingId);
+        await finalizeIdempotencyKey(tx, idempotencyKey);
+
+        return booking;
+    });
 }
