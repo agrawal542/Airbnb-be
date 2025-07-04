@@ -7,7 +7,7 @@ const sequelize = new Sequelize({
     dialect: "mysql",
     host: "localhost",
     username: "root",
-    password: "542542",
+    password: "2002",
     database:"airbnb_hotel_dev",
     logging: true
 });
