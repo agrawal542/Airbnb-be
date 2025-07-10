@@ -6,7 +6,6 @@ import { appErrorHandler, genericErrorHandler } from "./middlewares/error.middle
 import { attachCorrelationIdMiddleware } from "./middlewares/correlation.middleware";
 import logger from "./config/logger.config";
 import sequelize from "./db/models/sequelize";
-import Hotel from "./db/models/hotel";
 
 const app = express();
 
