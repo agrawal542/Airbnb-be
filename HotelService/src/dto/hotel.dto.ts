@@ -3,5 +3,5 @@ export type createHotelDTO = {
     address: string;
     location: string;
     rating?: number;
-    ratingCount?: number;
+    rating_count?: number;
 }
