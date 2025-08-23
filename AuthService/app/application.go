@@ -2,6 +2,7 @@ package app
 
 import (
 	config "AuthService/config/env"
+	"AuthService/router"
 	"fmt"
 	"net/http"
 	"time"
@@ -31,7 +32,7 @@ func NewApplication(config Config) *Application {
 func (app *Application) Run() error {
 	server := &http.Server{
 		Addr:         app.Config.Addr,
-		Handler:      nil,
+		Handler:      router.SetupRouter(),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
