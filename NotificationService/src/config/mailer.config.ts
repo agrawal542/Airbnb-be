@@ -7,6 +7,9 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: serverConfig.MAIL_USER,
         pass: serverConfig.MAIL_PASS
+    },
+    tls: {
+        minVersion: 'TLSv1.2'
     }
 });
 

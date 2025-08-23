@@ -30,18 +30,17 @@ app.use(genericErrorHandler)
 
 
 app.listen(serverConfig.PORT, () => {
-   logger.info(`Server is running on http://localhost:${serverConfig.PORT}`);
+    logger.info(`Server is running on http://localhost:${serverConfig.PORT}`);
     logger.info(`Press Ctrl+C to stop the server.`);
-
-    for(let i = 0; i < 5; i++) {
-        addEmailToQueue({
-            to: `sample from booking ${i}`,
-            subject: "Sample Email booking",
-            templateId: "sample-template",
-            params: {
-                name: "John Doe",
-                orderId: "12345",
-            }
-        })
-    }
+    // for(let i = 0; i < 5; i++) {
+    //     addEmailToQueue({
+    //         to: `sample from booking ${i}`,
+    //         subject: "Sample Email booking",
+    //         templateId: "welcome",
+    //         params: {
+    //             name: "John Doe",
+    //             orderId: "12345",
+    //         }
+    //     })
+    // }
 })
