@@ -6,12 +6,8 @@ import (
 
 func main() {
 
-	config := app.Config{
-		Addr: ":3011",
-	}
-	app := app.Application{
-		Config: config,
-	}
+	config := app.NewConfig(":3011")
+	app := app.NewApplication(*config)
 
 	app.Run()
 }
