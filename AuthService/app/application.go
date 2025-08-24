@@ -1,11 +1,13 @@
 package app
 
 import (
+	dbConfig "AuthService/config/db"
 	config "AuthService/config/env"
 	"AuthService/controllers"
-	db "AuthService/db/repositories"
+	repo "AuthService/db/repositories"
 	"AuthService/router"
 	"AuthService/services"
+	"database/sql"
 	"fmt"
 	"net/http"
 	"time"
@@ -17,7 +19,7 @@ type Config struct {
 
 type Application struct {
 	Config Config
-	Store  db.Storage
+	Store  repo.Storage
 }
 
 func NewConfig() *Config {
@@ -30,13 +32,19 @@ func NewConfig() *Config {
 func NewApplication(config Config) *Application {
 	return &Application{
 		Config: config,
-		Store:  *db.NewStorage(),
+		Store:  *repo.NewStorage(),
 	}
 }
 
-func (app *Application) Run() error {
+func (app *Application) Run(dbInstance *sql.DB) error {
 
-	ur := db.NewUserRepository()
+	db, err := dbConfig.SetupDB()
+	if err != nil {
+		fmt.Println("Error setting an database:", err)
+		return err
+	}
+
+	ur := repo.NewUserRepository(db)
 	us := services.NewUserService(ur)
 	uc := controllers.NewUserController(us)
 	uRouter := router.NewUserRouter(uc)

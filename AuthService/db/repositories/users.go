@@ -1,6 +1,7 @@
 package db
 
 import (
+	"database/sql"
 	"fmt"
 )
 
@@ -9,12 +10,12 @@ type UserRepository interface {
 }
 
 type UserRepositoryIml struct {
-	// db *sql.DB
+	db *sql.DB
 }
 
-func NewUserRepository() UserRepository {
+func NewUserRepository(_db *sql.DB) UserRepository {
 	return &UserRepositoryIml{
-		// db: db,
+		db: _db,
 	}
 }
 
