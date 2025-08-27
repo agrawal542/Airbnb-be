@@ -7,7 +7,6 @@ import (
 	repo "AuthService/db/repositories"
 	"AuthService/router"
 	"AuthService/services"
-	"database/sql"
 	"fmt"
 	"net/http"
 	"time"
@@ -36,7 +35,7 @@ func NewApplication(config Config) *Application {
 	}
 }
 
-func (app *Application) Run(dbInstance *sql.DB) error {
+func (app *Application) Run() error {
 
 	db, err := dbConfig.SetupDB()
 	if err != nil {
