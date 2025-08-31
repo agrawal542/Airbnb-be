@@ -21,6 +21,7 @@ func NewUserService(_userRepository db.UserRepository) UserService {
 
 func (u *UserServiceImpl) GetUserById() error {
 	fmt.Println("Fetching user in User Service")
-	u.userRepository.GetById()
+	// u.userRepository.GetById("1")
+	u.userRepository.GetByEmail("Ayaan@123")
 	return nil
 }

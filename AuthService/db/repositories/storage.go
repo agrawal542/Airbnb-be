@@ -6,6 +6,6 @@ type Storage struct {
 
 func NewStorage() *Storage {
 	return &Storage{
-		UserRepository: &UserRepositoryIml{},
+		UserRepository: &UserRepositoryImpl{},
 	}
 }
