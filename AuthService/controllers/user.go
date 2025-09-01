@@ -17,6 +17,6 @@ func NewUserController(_userService services.UserService) *UserController {
 }
 func (uc *UserController) GetUserById(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("GetUserById called in UserController")
-	uc.UserService.GetUserById()
+	// uc.UserService.Register()
 	w.Write([]byte("User fetching endpoint done"))
 }
