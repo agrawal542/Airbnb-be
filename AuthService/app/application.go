@@ -18,7 +18,6 @@ type Config struct {
 
 type Application struct {
 	Config Config
-	Store  repo.Storage
 }
 
 func NewConfig() *Config {
@@ -31,7 +30,6 @@ func NewConfig() *Config {
 func NewApplication(config Config) *Application {
 	return &Application{
 		Config: config,
-		Store:  *repo.NewStorage(),
 	}
 }
 

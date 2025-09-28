@@ -1,4 +1,4 @@
-MIGRATION_FOLDER=db/migrations 
+MIGRATIONS_FOLDER=db/migrations 
 DB_URL=root:2002@tcp(127.0.0.1:3306)/auth_dev
 
 # Create a new migration -> gmake migrate-create name="create_entity_table
