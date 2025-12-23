@@ -25,7 +25,7 @@ func (rr *RoleRouter) Register(r chi.Router) {
 	r.With(middlewares.UpdateRoleRequestValidator).Put("/roles/{id}", rr.roleController.UpdateRole)
 	r.Delete("/roles/{id}", rr.roleController.DeleteRole)
 
-	// // Role permissions operations
+	// Role permissions operations
 	r.Get("/roles/{id}/permissions", rr.roleController.GetRolePermissions)
 	r.With(middlewares.AssignPermissionRequestValidator).Post("/roles/{id}/permissions", rr.roleController.AssignPermissionToRole)
 	r.With(middlewares.RemovePermissionRequestValidator).Delete("/roles/{id}/permissions", rr.roleController.RemovePermissionFromRole)
