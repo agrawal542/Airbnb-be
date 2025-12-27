@@ -8,7 +8,6 @@ export class RoomCategoryRepository extends BaseRepository<RoomCategory> {
         super(RoomCategory);
     }
 
-
     async findAlLByHotelId(hotel_id: number) {
         const roomCategories = await this.model.findAll({
             where: {
