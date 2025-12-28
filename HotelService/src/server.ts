@@ -36,8 +36,8 @@ app.listen(serverConfig.PORT, async () => {
     await sequelize.authenticate(); // Test the connection to the database
     logger.info('Database connection has been established successfully.');
 
-    setupRoomGenerationWorker()
+    // setupRoomGenerationWorker()
 
-    startScheduler()
-    logger.info(`Room availability extension scheduler initialized`);
+    // startScheduler()
+    // logger.info(`Room availability extension scheduler initialized`);
 })

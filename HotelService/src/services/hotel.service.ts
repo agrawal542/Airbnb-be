@@ -4,7 +4,6 @@ import { HotelRepository } from "../repositories/hotel.repository";
 
 const hotelRepository = new HotelRepository();
 
-
 export async function createHotelService(hotelData: createHotelDTO) {
     const hotel = await hotelRepository.create(hotelData);
     return hotel;

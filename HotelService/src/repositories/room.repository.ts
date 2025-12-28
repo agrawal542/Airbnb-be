@@ -1,4 +1,4 @@
-import { CreationAttributes } from "sequelize";
+import { CreationAttributes, Op } from "sequelize";
 import Room from "../db/models/room";
 import BaseRepository from "./base.repository";
 
@@ -54,5 +54,30 @@ export class RoomRepository extends BaseRepository<Room> {
             roomCategoryId: result.room_category_id,
             latestDate: new Date(result.latestDate)
         }));
+    }
+
+    async findByRoomCategoryIdAndDateRange(roomCategoryId: number, checkInDate: Date, checkOutDate: Date) {
+        return await this.model.findAll({
+            where: {
+                room_category_id: roomCategoryId,
+                booking_id: null,
+                date_of_availability: {
+                    [Op.between]: [checkInDate, checkOutDate]
+                }
+            }
+        })
+    }
+
+    async updateBookingIdForRooms(bookingId: number, roomIds: number[],) {
+        return await this.model.update(
+            { booking_id: bookingId },
+            {
+                where: {
+                    id: {
+                        [Op.in]: roomIds
+                    }
+                }
+            }
+        );
     }
 }

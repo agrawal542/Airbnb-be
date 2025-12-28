@@ -35,6 +35,7 @@ export const validateQueryParams = (schema: AnyZodObject) => {
             console.log("Query params are valid");
             next();
         } catch (error: any) {
+            console.log(error,"---error-------")
             // If the validation fails, 
             logger.error("Query params is invalid");
             return next(new BadRequestError("Invalid query params",));

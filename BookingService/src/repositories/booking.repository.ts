@@ -5,6 +5,7 @@ import { validate as isValidUUID } from "uuid";
 
 
 export async function createBooking(bookingInput: Prisma.BookingCreateInput) {
+    console.log("Booking Input:", bookingInput);
     const booking = await prismaClient.booking.create({
         data: bookingInput
     });
